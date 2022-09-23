@@ -12,6 +12,7 @@ from  sklearn.impute import SimpleImputer # Rellenar datos faltantes con la medi
 from sklearn.preprocessing import LabelEncoder # Convertir variables categóricas en números
 from sklearn.compose import ColumnTransformer
 import sklearn
+from sklearn.model_selection import train_test_split
 
 dataset = pd.read_csv("Data.csv");
 
@@ -37,6 +38,8 @@ transformers = [('Country', OneHotEncoder(), [0])];
 ct = ColumnTransformer(transformers, remainder='passthrough');
 X= ct.fit_transform(X);
 
+#Dividiendo conjunto de entrenamiento y conjunto de testing
+X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_state=0)
 
 
 
