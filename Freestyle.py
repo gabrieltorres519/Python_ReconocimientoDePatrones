@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from  sklearn.impute import SimpleImputer # Rellenar datos faltantes con la media
 from sklearn.preprocessing import LabelEncoder # Convertir variables categóricas en números
+from sklearn.compose import ColumnTransformer
+import sklearn
 
 dataset = pd.read_csv("Data.csv");
 
@@ -28,6 +30,12 @@ X[:,0] = labelenconder_X.fit_transform(X[:,0]); # Convertir variables categóric
 imputer.fit(X[:, 1:3]);
 
 X[:, 1:3] = imputer.transform(X[:, 1:3]);
+
+#Country Column
+OneHotEncoder = sklearn.preprocessing.OneHotEncoder;
+transformers = [('Country', OneHotEncoder(), [0])];
+ct = ColumnTransformer(transformers, remainder='passthrough');
+X= ct.fit_transform(X);
 
 
 
