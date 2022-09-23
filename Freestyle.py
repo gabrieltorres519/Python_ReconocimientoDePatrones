@@ -13,6 +13,7 @@ from sklearn.preprocessing import LabelEncoder # Convertir variables categórica
 from sklearn.compose import ColumnTransformer
 import sklearn
 from sklearn.model_selection import train_test_split
+#from sklearn.preprocessing import StandartScaler
 
 dataset = pd.read_csv("Data.csv");
 
@@ -42,4 +43,14 @@ X= ct.fit_transform(X);
 X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_state=0)
 
 
+#Escalado de variables (primero convertimos las variables categoricas en la columna 'Purchased' a valores)
 
+labelenconder_X2 = LabelEncoder(); #Creando codificador de datos 
+
+X_train[:,5] = labelenconder_X2.fit_transform(X_train[:,5]); # Convertir variables categóricas en números
+
+X_test[:,5] = labelenconder_X2.fit_transform(X_test[:,5]); # Convertir variables categóricas en números
+
+sc_X=sklearn.preprocessing.StandardScaler()
+X_train=sc_X.fit_transform(X_train)
+X_test=sc_X.transform(X_test)
